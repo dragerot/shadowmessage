@@ -9,7 +9,7 @@ public class BrukerKontakt implements Serializable {
 //    @Id
 //    private String id;
     @Id
-    private String type;
+    private TypeMelding type;
     private String kontakt;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bruker_id")
@@ -19,18 +19,18 @@ public class BrukerKontakt implements Serializable {
     public BrukerKontakt() {
     }
 
-    public BrukerKontakt(String type, String kontakt) {
-
+    public BrukerKontakt(TypeMelding type, String kontakt, Bruker bruker) {
         this.type = type;
         this.kontakt = kontakt;
+        this.bruker=bruker;
     }
 
 
-    public String getType() {
+    public TypeMelding getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeMelding type) {
         this.type = type;
     }
 
@@ -51,4 +51,10 @@ public class BrukerKontakt implements Serializable {
     }
 
 
+//    @Override
+//    public int compareTo(BrukerKontakt brukerKontakt) {
+//        if(this.type. > brukerKontakt.getType()) return -1;
+//
+//        return
+//    }
 }

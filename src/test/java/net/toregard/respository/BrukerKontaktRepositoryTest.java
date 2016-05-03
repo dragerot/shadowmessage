@@ -3,6 +3,7 @@ package net.toregard.respository;
 import net.toregard.ShadowMessageApplication;
 import net.toregard.model.Bruker;
 import net.toregard.model.BrukerKontakt;
+import net.toregard.model.TypeMelding;
 import net.toregard.repository.BrukerRepository;
 import net.toregard.repository.BrukerKontaktRepository;
 import org.junit.Assert;
@@ -27,18 +28,17 @@ public class BrukerKontaktRepositoryTest {
     @Test
     public void general1Test() {
         Bruker bruker = new Bruker();
-        bruker.setFornavn("Tore G");
-        bruker.setEtterNavn("AND");
-        bruker.setId("nokkel1");
-
-        BrukerKontakt brukerKontakt = new BrukerKontakt();
-        brukerKontakt.setBruker(bruker);
-        brukerKontakt.setType("SMS");
-        brukerKontakt.setKontakt("sms1");
-        bruker.getBrukerKontaktene().add(brukerKontakt);
+        bruker.setFornavn("Tore Gard");
+        bruker.setEtterNavn("Andersen");
+        bruker.setId("90513530");
+        bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.SMS, "90513531", bruker));
+        bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.EPOST, "epost@e.no", bruker));
+        bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.TELEFON, "90513532", bruker));
         brukerRepository.saveAndFlush(bruker);
-        Assert.assertTrue(true);
 
+        Set<BrukerKontakt> k =  brukerRepository.findOne("90513530").getBrukerKontaktene();
+        //Assert.assertEquals("90513531", );
+        Assert.assertTrue(true);
     }
 
     //@Test

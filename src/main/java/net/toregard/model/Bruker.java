@@ -10,14 +10,17 @@ import java.util.Set;
  */
 @Entity
 public class Bruker implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     private String id;
     private String fornavn;
     private String etterNavn;
-    @OneToMany(mappedBy = "bruker", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bruker", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<BrukerKontakt> brukerKontaktene;
 
     public Bruker() {
+
     }
 
     public Bruker(String id, String fornavn, String etterNavn,Set<BrukerKontakt> brukerKontaktene) {
