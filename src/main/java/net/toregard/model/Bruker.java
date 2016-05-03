@@ -1,9 +1,8 @@
 package net.toregard.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,17 +14,17 @@ public class Bruker implements Serializable {
     private String id;
     private String fornavn;
     private String etterNavn;
-    @OneToMany(mappedBy="bruker")
-    private Set<KontaktDetaljer> kontaktDetaljer;
+    @OneToMany(mappedBy = "bruker", cascade = CascadeType.ALL)
+    private Set<BrukerKontakt> brukerKontaktene;
 
     public Bruker() {
     }
 
-    public Bruker(String id, String fornavn, String etterNavn, Set<KontaktDetaljer> kontaktDetaljer) {
+    public Bruker(String id, String fornavn, String etterNavn,Set<BrukerKontakt> brukerKontaktene) {
         this.id = id;
         this.fornavn = fornavn;
         this.etterNavn = etterNavn;
-        this.kontaktDetaljer = kontaktDetaljer;
+        this.brukerKontaktene=brukerKontaktene;
     }
 
     public String getId() {
@@ -52,11 +51,35 @@ public class Bruker implements Serializable {
         this.etterNavn = etterNavn;
     }
 
-    public Set<KontaktDetaljer> getKontaktDetaljer() {
-        return kontaktDetaljer;
+    public Set<BrukerKontakt> getBrukerKontaktene() {
+        if(brukerKontaktene==null)  brukerKontaktene=new HashSet<BrukerKontakt>();
+        return brukerKontaktene;
     }
 
-    public void setKontaktDetaljer(Set<KontaktDetaljer> kontaktDetaljer) {
-        this.kontaktDetaljer = kontaktDetaljer;
+    public void setBrukerKontaktene(Set<BrukerKontakt> brukerKontaktene) {
+        this.brukerKontaktene = brukerKontaktene;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bruker bruker = (Bruker) o;
+
+        if (id != null ? !id.equals(bruker.id) : bruker.id != null) return false;
+        if (fornavn != null ? !fornavn.equals(bruker.fornavn) : bruker.fornavn != null) return false;
+        if (etterNavn != null ? !etterNavn.equals(bruker.etterNavn) : bruker.etterNavn != null) return false;
+        return brukerKontaktene != null ? brukerKontaktene.equals(bruker.brukerKontaktene) : bruker.brukerKontaktene == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (fornavn != null ? fornavn.hashCode() : 0);
+        result = 31 * result + (etterNavn != null ? etterNavn.hashCode() : 0);
+        result = 31 * result + (brukerKontaktene != null ? brukerKontaktene.hashCode() : 0);
+        return result;
     }
 }
