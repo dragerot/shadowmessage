@@ -14,7 +14,7 @@ public class BaatPlass implements Serializable {
     Integer bredde;
     Integer lengde;
 
-    public BaatPlass() {
+    protected BaatPlass() {
     }
 
     public BaatPlass(String nr) {

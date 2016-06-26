@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,4 +38,6 @@ public class BaatPlassRepositoryTest {
         baatPlassRepository.delete("4");
         assertEquals(5,(baatPlassRepository.findAll()).size());
     }
+
+
 }

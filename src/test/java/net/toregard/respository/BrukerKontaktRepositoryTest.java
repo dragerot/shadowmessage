@@ -4,8 +4,8 @@ import net.toregard.ShadowMessageApplication;
 import net.toregard.model.Bruker;
 import net.toregard.model.BrukerKontakt;
 import net.toregard.model.TypeMelding;
-import net.toregard.repository.BrukerRepository;
 import net.toregard.repository.BrukerKontaktRepository;
+import net.toregard.repository.BrukerRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +31,11 @@ public class BrukerKontaktRepositoryTest {
         bruker.setFornavn("Tore Gard");
         bruker.setEtterNavn("Andersen");
         bruker.setId("90513530");
+
+        Set<BrukerKontakt> brukerKontakt = new HashSet<BrukerKontakt>();
+        brukerKontakt.add(new BrukerKontakt(TypeMelding.SMS, "90513531", bruker));
+        brukerKontakt.add(new BrukerKontakt(TypeMelding.SMS, "90513531", bruker));
+        brukerKontakt.add(new BrukerKontakt(TypeMelding.TELEFON, "90513532", bruker));
         bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.SMS, "90513531", bruker));
         bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.EPOST, "epost@e.no", bruker));
         bruker.getBrukerKontaktene().add(new BrukerKontakt(TypeMelding.TELEFON, "90513532", bruker));

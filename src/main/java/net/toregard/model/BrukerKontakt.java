@@ -16,7 +16,7 @@ public class BrukerKontakt implements Serializable {
      private Bruker bruker;
 
 
-    public BrukerKontakt() {
+    protected BrukerKontakt() {
     }
 
     public BrukerKontakt(TypeMelding type, String kontakt, Bruker bruker) {

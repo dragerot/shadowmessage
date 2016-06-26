@@ -12,10 +12,12 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'spring-boot' 
-apply plugin: 'war'
+apply plugin: 'spring-boot'
+ apply plugin: 'war'
 
+bootRun {
+	addResources = true
+}
 
 war {
 	baseName = 'shadowmessage'
@@ -28,33 +30,44 @@ repositories {
 	mavenCentral()
 }
 
+/*
+http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html
+
+To build a war file that is both executable and deployable into an external
+container, you need to mark the embedded container dependencies
+as belonging to a configuration named “providedRuntime”, e.g:
+ */
 configurations {
 	providedRuntime
+}
+
+bootRepackage {
+	mainClass = 'net.toregard.SpringBootApplication'
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-cache')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-mobile')
+	//compile('org.springframework.boot:spring-boot-starter-mobile')
 	compile('org.springframework.boot:spring-boot-starter-validation')
-	compile('org.springframework.boot:spring-boot-starter-web')
+
 	compile('org.springframework.boot:spring-boot-starter-ws')
-	runtime('mysql:mysql-connector-java')
 
+	compile("org.springframework.boot:spring-boot-devtools")
+
+	//runtime('mysql:mysql-connector-java')
+	compile('com.h2database:h2')
+
+	compile('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	//testCompile('com.h2database:h2')
-	testCompile('mysql:mysql-connector-java')
+	testCompile('com.h2database:h2')
+	//testCompile('mysql:mysql-connector-java')
+	testCompile "org.mockito:mockito-core:2.+"
 }
 
-
-eclipse {
-	classpath {
-		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
-	}
-}
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.12'
