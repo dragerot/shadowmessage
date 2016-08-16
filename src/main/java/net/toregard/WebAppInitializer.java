@@ -14,7 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.security.AccessController;
 
-//@Configuration
+@Configuration
 public class WebAppInitializer implements  WebApplicationInitializer{ //}ServletContextInitializer WebApplicationInitializer {
 
     @Override
@@ -25,6 +25,8 @@ public class WebAppInitializer implements  WebApplicationInitializer{ //}Servlet
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcherServlet", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("*.html");
+        //String[] urlPatterns = new String[]{"*.html","*.jsp"};
+        //dispatcher.addMapping(urlPatterns);
         /*
          // Create the 'root' Spring application context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
@@ -40,13 +42,12 @@ public class WebAppInitializer implements  WebApplicationInitializer{ //}Servlet
         // Register and map the dispatcher servlet
         ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+        dispatcher.addMapping("");
          */
     }
 
     private AnnotationConfigWebApplicationContext getContext(){
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        //rootContext.setConfigLocation("net.toregard.WebConfig");
         rootContext.setConfigLocation("net.toregard.WebConfig");
         return rootContext;
     }

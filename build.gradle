@@ -13,16 +13,24 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
- apply plugin: 'war'
+//apply plugin: 'war'
 
 bootRun {
 	addResources = true
 }
 
+jar {
+	baseName = 'ShadowMessageJar'
+	version =  '1.0.0'
+}
+
+/*
 war {
 	baseName = 'shadowmessage'
 	version = '0.0.1-SNAPSHOT'
 }
+*/
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -36,21 +44,28 @@ http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins
 To build a war file that is both executable and deployable into an external
 container, you need to mark the embedded container dependencies
 as belonging to a configuration named “providedRuntime”, e.g:
- */
+*/
+
+/* Tomcat warz
 configurations {
 	providedRuntime
 }
-
+*/
 bootRepackage {
-	mainClass = 'net.toregard.SpringBootApplication'
+	mainClass = 'net.toregard.ShadowMessageApplication'
 }
+
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-cache')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	//compile('org.springframework.boot:spring-boot-starter-mobile')
+	compile('org.springframework.boot:spring-boot-starter-mobile')
 	compile('org.springframework.boot:spring-boot-starter-validation')
+
+
+	//JMX monitorering
+	compile("org.springframework.boot:spring-boot-starter-actuator")
 
 	compile('org.springframework.boot:spring-boot-starter-ws')
 
@@ -60,7 +75,11 @@ dependencies {
 	compile('com.h2database:h2')
 
 	compile('org.springframework.boot:spring-boot-starter-web')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+	//runtime ('org.apache.tomcat.embed:tomcat-embed-jasper')
+
+	//Tomcat war
+	//providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('com.h2database:h2')
