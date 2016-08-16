@@ -4,8 +4,9 @@
 <head>
     <meta http-equiv="CONTENT-TYPE" content="text/html; charset=ISO-8859-1">
     <title>Title</title>
+    </meta>
 </head>
 <body>
-Allo
+Allo index jsp
 </body>
 </html>
